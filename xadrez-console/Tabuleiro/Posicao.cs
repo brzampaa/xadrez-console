@@ -1,4 +1,4 @@
-﻿namespace xadrez_console.Tabuleiro {
+﻿namespace tabuleiro {
     class Posicao {
 
         public int Linha { get; set; }

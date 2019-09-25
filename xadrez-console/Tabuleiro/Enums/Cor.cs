@@ -1,4 +1,4 @@
-﻿namespace xadrez_console.Tabuleiro.Enums {
+﻿namespace tabuleiro.Enums {
     enum Cor {
         Branca,
         Preta,

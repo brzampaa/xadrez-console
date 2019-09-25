@@ -1,7 +1,7 @@
-﻿using xadrez_console.Tabuleiro;
-using xadrez_console.Tabuleiro.Enums;
+﻿using tabuleiro;
+using tabuleiro.Enums;
 
-namespace xadrez_console.Tabuleiro {
+namespace tabuleiro {
     class Peca {
         public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
