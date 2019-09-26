@@ -24,6 +24,17 @@ namespace tabuleiro {
                 p.Posicao = pos;
         }
 
+        public Peca RetirarPeca(Posicao pos) {
+            if (ExistePeca(pos)) {
+                Peca aux = Peca(pos);
+                aux.Posicao = null;
+                Pecas[pos.Linha, pos.Coluna] = null;
+                return aux;
+            } else {
+                return null;
+            }
+        }
+
         public Peca Peca(Posicao pos) {
             return Pecas[pos.Linha, pos.Coluna];
         }
