@@ -19,19 +19,13 @@ namespace xadrez_console {
                 while (!partida.Terminada) {
                     try {
                         Console.Clear();
-                        Tela.ImprimirTabuleiro(partida.Tab);
+                        Tela.ImprimirPartida(partida);
 
-                        Console.WriteLine();
-                        Console.WriteLine("Turno: " + partida.Turno);
-                        Console.Write("Aguardando jogada: ");
-                        if (partida.JogadorAtual == Cor.Preta) {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                        } else {
-                            Console.ForegroundColor = ConsoleColor.White;
-                        }
+                        Console.ForegroundColor = (partida.JogadorAtual == Cor.Preta) ? ConsoleColor.Green : ConsoleColor.White;
+
                         Console.Write(partida.JogadorAtual);
                         Console.ForegroundColor = ConsoleColor.White;
-
+                        Console.WriteLine();
                         Console.WriteLine();
                         Console.Write("Origem: ");
                         Posicao origem = Tela.LerPosicaoXadrez().ToPosicao();
@@ -40,19 +34,13 @@ namespace xadrez_console {
                         bool[,] posicoesPossiveis = partida.Tab.Peca(origem).MovimentosPossiveis();
 
                         Console.Clear();
-                        Tela.ImprimirTabuleiro(partida.Tab, posicoesPossiveis);
+                        Tela.ImprimirPartida(partida, posicoesPossiveis);
 
-                        Console.WriteLine();
-                        Console.WriteLine("Turno: " + partida.Turno);
-                        Console.Write("Aguardando jogada: ");
-                        if (partida.JogadorAtual == Cor.Preta) {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                        } else {
-                            Console.ForegroundColor = ConsoleColor.White;
-                        }
+                        Console.ForegroundColor = (partida.JogadorAtual == Cor.Preta) ? ConsoleColor.Green : ConsoleColor.White;
+                        
                         Console.Write(partida.JogadorAtual);
                         Console.ForegroundColor = ConsoleColor.White;
-
+                        Console.WriteLine();
                         Console.WriteLine();
                         Console.Write("Destino: ");
                         Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
@@ -65,7 +53,6 @@ namespace xadrez_console {
                     }
                 }
             } catch (Exception e) {
-
                 Console.WriteLine(e.Message);
             }
 

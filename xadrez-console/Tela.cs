@@ -2,9 +2,48 @@
 using tabuleiro;
 using tabuleiro.Enums;
 using xadrez;
+using System.Collections.Generic;
 
 namespace xadrez_console {
     class Tela {
+
+        public static void ImprimirPartida(PartidaXadrez partida) {
+            ImprimirTabuleiro(partida.Tab);
+            Console.WriteLine();
+            ImprimirPecasCapturadas(partida);
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + partida.Turno);
+            Console.Write("Aguardando jogada: ");
+        }
+
+        public static void ImprimirPartida(PartidaXadrez partida, bool[,] posicoesPossiveis) {
+            ImprimirTabuleiro(partida.Tab, posicoesPossiveis);
+            Console.WriteLine();
+            ImprimirPecasCapturadas(partida);
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + partida.Turno);
+            Console.Write("Aguardando jogada: ");
+        }
+
+        public static void ImprimirPecasCapturadas(PartidaXadrez partida) {
+            Console.WriteLine("Peças capturadas:");
+            Console.Write("Brancas: ");
+            ImprimirConjunto(partida.PecasCapturadas(Cor.Branca));
+            Console.WriteLine();
+            Console.Write("Pretas: ");
+            ImprimirConjunto(partida.PecasCapturadas(Cor.Preta));
+            Console.WriteLine();
+        }
+
+        public static void ImprimirConjunto(HashSet<Peca> conjunto) {
+            Console.Write("[");
+            foreach (Peca p in conjunto) {
+                Console.ForegroundColor = (p.Cor == Cor.Preta) ? ConsoleColor.Green : ConsoleColor.White;
+                Console.Write($"{p} ");
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("]");
+        }
 
         public static void ImprimirTabuleiro(Tabuleiro tab) {
             for (int i = 0; i < tab.Linhas; i++) {
