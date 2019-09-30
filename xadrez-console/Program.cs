@@ -2,6 +2,7 @@
 using tabuleiro;
 using xadrez;
 using tabuleiro.Enums;
+using tabuleiro.Exceptions;
 
 namespace xadrez_console {
     class Program {
@@ -11,34 +12,63 @@ namespace xadrez_console {
             Console.WriteLine(pos);
 
             Console.WriteLine(pos.ToPosicao());*/
-            
+
             try {
 
                 PartidaXadrez partida = new PartidaXadrez();
                 while (!partida.Terminada) {
-                    Console.Clear();
-                    Tela.ImprimirTabuleiro(partida.Tab);
+                    try {
+                        Console.Clear();
+                        Tela.ImprimirTabuleiro(partida.Tab);
 
-                    Console.WriteLine();
-                    Console.Write("Origem: ");
-                    Posicao origem = Tela.LerPosicaoXadrez().ToPosicao();
+                        Console.WriteLine();
+                        Console.WriteLine("Turno: " + partida.Turno);
+                        Console.Write("Aguardando jogada: ");
+                        if (partida.JogadorAtual == Cor.Preta) {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        } else {
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        Console.Write(partida.JogadorAtual);
+                        Console.ForegroundColor = ConsoleColor.White;
 
-                    bool[,] posicoesPossiveis = partida.Tab.Peca(origem).MovimentosPossiveis();
+                        Console.WriteLine();
+                        Console.Write("Origem: ");
+                        Posicao origem = Tela.LerPosicaoXadrez().ToPosicao();
+                        partida.ValidarPosicaoOrigem(origem);
 
-                    Console.Clear();
-                    Tela.ImprimirTabuleiro(partida.Tab, posicoesPossiveis);
+                        bool[,] posicoesPossiveis = partida.Tab.Peca(origem).MovimentosPossiveis();
 
-                    Console.WriteLine();
-                    Console.Write("Destino: ");
-                    Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
+                        Console.Clear();
+                        Tela.ImprimirTabuleiro(partida.Tab, posicoesPossiveis);
 
-                    partida.ExecutaMovimento(origem, destino);
+                        Console.WriteLine();
+                        Console.WriteLine("Turno: " + partida.Turno);
+                        Console.Write("Aguardando jogada: ");
+                        if (partida.JogadorAtual == Cor.Preta) {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        } else {
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        Console.Write(partida.JogadorAtual);
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        Console.WriteLine();
+                        Console.Write("Destino: ");
+                        Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
+                        partida.ValidarPosicaoDestino(origem, destino);
+
+                        partida.RealizaJogada(origem, destino);
+                    } catch (TabuleiroException e) {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
             } catch (Exception e) {
 
                 Console.WriteLine(e.Message);
             }
-            
+
         }
     }
 }
