@@ -13,13 +13,18 @@ namespace xadrez_console {
             ImprimirPecasCapturadas(partida);
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.Turno);
-            Console.Write("Aguardando jogada: ");
-            Console.ForegroundColor = (partida.JogadorAtual == Cor.Preta) ? ConsoleColor.Green : ConsoleColor.White;
-            Console.Write(partida.JogadorAtual);
-            Console.ForegroundColor = ConsoleColor.White;
-            if (partida.Xeque) {
-                Console.WriteLine();
-                Console.Write("VOCÊ ESTÁ EM XEQUE!");
+            if (!partida.Terminada) {
+                Console.Write("Aguardando jogada: ");
+                Console.ForegroundColor = (partida.JogadorAtual == Cor.Preta) ? ConsoleColor.Green : ConsoleColor.White;
+                Console.Write(partida.JogadorAtual);
+                Console.ForegroundColor = ConsoleColor.White;
+                if (partida.Xeque) {
+                    Console.WriteLine();
+                    Console.Write("VOCÊ ESTÁ EM XEQUE!");
+                }
+            } else {
+                Console.WriteLine("XEQUE MATE!");
+                Console.WriteLine("Vencedor: " + partida.JogadorAtual);
             }
         }
 
@@ -94,7 +99,7 @@ namespace xadrez_console {
             for (int i = 0; i < tab.Linhas; i++) {
                 Console.Write(8 - i + " ");
                 for (int j = 0; j < tab.Colunas; j++) {
-                    if (posicoesPossiveis[i,j]) {
+                    if (posicoesPossiveis[i, j]) {
                         Console.BackgroundColor = fundoAlterado;
                     } else {
                         Console.BackgroundColor = fundoOriginal;
