@@ -21,10 +21,7 @@ namespace xadrez_console {
                         Console.Clear();
                         Tela.ImprimirPartida(partida);
 
-                        Console.ForegroundColor = (partida.JogadorAtual == Cor.Preta) ? ConsoleColor.Green : ConsoleColor.White;
-
-                        Console.Write(partida.JogadorAtual);
-                        Console.ForegroundColor = ConsoleColor.White;
+                        
                         Console.WriteLine();
                         Console.WriteLine();
                         Console.Write("Origem: ");
@@ -35,14 +32,10 @@ namespace xadrez_console {
 
                         Console.Clear();
                         Tela.ImprimirPartida(partida, posicoesPossiveis);
-
-                        Console.ForegroundColor = (partida.JogadorAtual == Cor.Preta) ? ConsoleColor.Green : ConsoleColor.White;
                         
-                        Console.Write(partida.JogadorAtual);
-                        Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine();
                         Console.WriteLine();
-                        Console.Write("Destino: ");
+                        Console .Write("Destino: ");
                         Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
                         partida.ValidarPosicaoDestino(origem, destino);
 

@@ -14,6 +14,13 @@ namespace xadrez_console {
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.Turno);
             Console.Write("Aguardando jogada: ");
+            Console.ForegroundColor = (partida.JogadorAtual == Cor.Preta) ? ConsoleColor.Green : ConsoleColor.White;
+            Console.Write(partida.JogadorAtual);
+            Console.ForegroundColor = ConsoleColor.White;
+            if (partida.Xeque) {
+                Console.WriteLine();
+                Console.Write("VOCÊ ESTÁ EM XEQUE!");
+            }
         }
 
         public static void ImprimirPartida(PartidaXadrez partida, bool[,] posicoesPossiveis) {
