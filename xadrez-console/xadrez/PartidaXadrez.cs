@@ -166,6 +166,11 @@ namespace xadrez {
         }
 
         public void ValidarPosicaoOrigem(Posicao pos) {
+            try {
+                Tab.Peca(pos);
+            } catch (IndexOutOfRangeException) {
+                throw new TabuleiroException("A posição informada não existe!");
+            }
             if (Tab.Peca(pos) == null) {
                 throw new TabuleiroException("Não existe peça na posição de origem escolhida!");
             }

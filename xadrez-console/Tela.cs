@@ -3,6 +3,7 @@ using tabuleiro;
 using tabuleiro.Enums;
 using xadrez;
 using System.Collections.Generic;
+using tabuleiro.Exceptions;
 
 namespace xadrez_console {
     class Tela {
@@ -35,6 +36,9 @@ namespace xadrez_console {
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.Turno);
             Console.Write("Aguardando jogada: ");
+            Console.ForegroundColor = (partida.JogadorAtual == Cor.Preta) ? ConsoleColor.Green : ConsoleColor.White;
+            Console.Write(partida.JogadorAtual);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public static void ImprimirPecasCapturadas(PartidaXadrez partida) {
@@ -75,9 +79,16 @@ namespace xadrez_console {
         }
 
         internal static PosicaoXadrez LerPosicaoXadrez() {
-            string pos = Console.ReadLine();
-            char coluna = pos[0];
-            int linha = int.Parse(pos[1] + "");
+            char coluna;
+            int linha;
+            try {
+                string pos = Console.ReadLine();
+                coluna = pos[0];
+                linha = int.Parse(pos[1] + "");
+            } catch (FormatException) {
+                throw new TabuleiroException("Informe a posição no padrão ColunaLinha. Ex.: a1");
+
+            }
             return new PosicaoXadrez(coluna, linha);
         }
 
