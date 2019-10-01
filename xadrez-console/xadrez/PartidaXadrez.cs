@@ -46,7 +46,7 @@ namespace xadrez {
                 Peca T = Tab.RetirarPeca(origemT);
                 T.IncrementarQteMovimentos();
                 Tab.ColocarPeca(T, destinoT);
-                Console.WriteLine("A jogada especial ROQUE será efetuada!\nPressione enter para continuar.");
+                Console.WriteLine("\nA jogada especial ROQUE será efetuada!\nPressione enter para continuar.");
                 Console.ReadLine();
             }
 
@@ -57,7 +57,7 @@ namespace xadrez {
                 Peca T = Tab.RetirarPeca(origemT);
                 T.IncrementarQteMovimentos();
                 Tab.ColocarPeca(T, destinoT);
-                Console.WriteLine("A jogada especial ROQUE será efetuada!\nPressione enter para continuar.");
+                Console.WriteLine("\nA jogada especial ROQUE será efetuada!\nPressione enter para continuar.");
                 Console.ReadLine();
             }
 
@@ -72,7 +72,7 @@ namespace xadrez {
                     }
                     pecaCapturada = Tab.RetirarPeca(posPeao);
                     Capturadas.Add(pecaCapturada);
-                    Console.WriteLine("A jogada especial EN PASSANT será efetuada!\nPressione enter para continuar.");
+                    Console.WriteLine("\nA jogada especial EN PASSANT será efetuada!\nPressione enter para continuar.");
                     Console.ReadLine();
                 }
             }
@@ -87,6 +87,21 @@ namespace xadrez {
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
             }
 
+            Peca p = Tab.Peca(destino);
+
+            //Jogada Especial: Promoção
+            if (p is Peao) {
+                if ((p.Cor == Cor.Branca && destino.Linha == 0) || (p.Cor == Cor.Preta && destino.Linha == 7)) {
+                    p = Tab.RetirarPeca(destino);
+                    Pecas.Remove(p);
+                    Peca dama = new Dama(p.Cor, Tab);
+                    Tab.ColocarPeca(dama, destino);
+                    Pecas.Add(dama);
+                    Console.WriteLine("\nSeu peão será promovido à DAMA!\nPressione enter para continuar.");
+                    Console.ReadLine();
+                }
+            }
+
             Xeque = (EstaEmXeque(Adversario(JogadorAtual))) ? true : false;
 
             if (TesteXequeMate(Adversario(JogadorAtual))) {
@@ -96,7 +111,8 @@ namespace xadrez {
                 MudaJogador();
             }
 
-            Peca p = Tab.Peca(destino);
+            
+
             //Jogada Especial: En Passant
             if (p is Peao && (destino.Linha == origem.Linha - 2 || destino.Linha == origem.Linha + 2)) {
                 VulneravelEnPassant = p;
